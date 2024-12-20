@@ -1,0 +1,146 @@
+<div class="container mt-5">
+  <div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+      <h2 class="mb-0">Bill Details</h2>
+    </div>
+    <div class="card-body">
+      <p><strong>Client Name:</strong>&nbsp;<span class="text-muted">{{ billData.clientName }}</span></p>
+      <p><strong>Client Email:</strong>&nbsp;<span class="text-muted">{{ billData.clientEmail }}</span></p>
+      <p><strong>Web Creation Service:</strong>&nbsp;<span class="text-muted">{{ billData.webCreationType }}</span></p>
+      <p><strong>Number of Pages:</strong>&nbsp;<span class="text-muted">{{ billData.numberOfPages }}</span></p>
+      <p>
+        <strong>Selected Options:</strong>
+        <span *ngIf="getSelectedOptions().length > 0">
+          <span *ngFor="let option of getSelectedOptions(); let isLast = last">
+            <span class="badge bg-secondary">{{ option.name }} - {{ option.price }}</span
+            ><span *ngIf="!isLast">, </span>
+          </span>
+        </span>
+        <span *ngIf="getSelectedOptions().length === 0" class="text-muted">None</span>
+      </p>
+      <p><strong>Maintenance Plan:</strong>&nbsp;<span class="text-muted">{{ billData.maintenancePlan || 'None' }}</span></p>
+      <hr />
+      <h4 class="text-success">
+        <strong>Total Price:</strong> {{ billData.totalPrice | currency: 'EUR' }}
+      </h4>
+      <h6 *ngIf="billData.monthlyPayment" class="text-danger">
+        <strong>Additional Fees:</strong> {{ billData.monthlyPayment | currency: 'EUR' }} / month
+      </h6>
+    </div>
+    <div class="card-footer d-flex justify-content-between">
+      <a (click)="go_back()" class="btn btn-secondary">
+        <i class="bi bi-arrow-left"></i> Go Back
+      </a>
+      <button class="btn btn-primary">
+        <i class="bi bi-printer"></i> Print Bill
+      </button>
+    </div>
+  </div>
+</div>
+<hr>
+<!-- This section will be rendered in the pdf -->
+<div #content>
+  <div class="invoice-box">
+    <table cellpadding="0" cellspacing="0">
+        <!-- Company Header -->
+        <tr class="top">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td class="title">
+                            <h2>DemBeck Coding</h2>
+                            <p>144 rue Yves Mainguy<br>56000 Vannes</p>
+                        </td>
+                        <td>
+                            <strong>Invoice #: </strong>{{ billData.invoiceNumber || 'N/A' }}<br>
+                            <strong>Created: </strong>{{ billData.creationDate | date: 'dd/MM/yyyy' }}<br>
+                            <strong>Due: </strong>{{ billData.dueDate | date: 'dd/MM/yyyy' }}
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- Client and Company Information -->
+        <tr class="information">
+            <td colspan="2">
+                <table>
+                    <tr>
+                        <td>
+                            <strong>Client Name:</strong> {{ billData.clientName }}<br>
+                            <strong>Client Email:</strong> {{ billData.clientEmail }}<br>
+                            <strong>Address:</strong> {{ billData.clientAddress || 'N/A' }}
+                        </td>
+                        <td>
+                            <strong>Issued by:</strong><br>
+                            DemBeck Coding<br>
+                            144 rue Yves Mainguy<br>
+                            56000 Vannes
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- Web Creation Service -->
+        <tr class="heading">
+            <td>Web Creation Service</td>
+            <td>Details</td>
+        </tr>
+        <tr class="item">
+            <td>Service Type</td>
+            <td>{{ billData.webCreationType }}</td>
+        </tr>
+        <tr class="item">
+            <td>Number of Pages</td>
+            <td>{{ billData.numberOfPages }}</td>
+        </tr>
+        <tr class="item">
+            <td>Selected Options</td>
+            <td>
+                <span *ngIf="getSelectedOptions().length > 0">
+                    <span *ngFor="let option of getSelectedOptions(); let isLast = last">
+                        {{ option.name }} - {{ option.price }}<span *ngIf="!isLast">, </span>
+                    </span>
+                </span>
+                <span *ngIf="getSelectedOptions().length === 0">None</span>
+            </td>
+        </tr>
+
+        <!-- Maintenance Plan -->
+        <tr class="heading">
+            <td>Maintenance Plan</td>
+            <td>Details</td>
+        </tr>
+        <tr class="item">
+            <td>Plan</td>
+            <td>{{ billData.maintenancePlan || 'None' }}</td>
+        </tr>
+
+        <!-- Pricing -->
+        <tr class="heading">
+            <td>Summary</td>
+            <td>Amount</td>
+        </tr>
+        <tr class="item">
+            <td>Total Price</td>
+            <td>{{ billData.totalPrice | currency: 'EUR' }}</td>
+        </tr>
+        <tr class="item" *ngIf="billData.monthlyPayment">
+            <td>Monthly Payment</td>
+            <td>{{ billData.monthlyPayment | currency: 'EUR' }}/month</td>
+        </tr>
+
+        <!-- Total -->
+        <tr class="total">
+            <td></td>
+            <td>
+                <strong>Total: </strong>{{ billData.totalPrice | currency: 'EUR' }}
+            </td>
+        </tr>
+    </table>
+</div>
+
+</div>
+<!-- End of the pdf section-->
+<button (click)="generatePDF()">Download PDF</button>
