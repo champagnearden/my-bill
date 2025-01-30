@@ -15,7 +15,6 @@ export type UserModel = {
     billAddress: AddressModel,
     postAddress: AddressModel,
     phone: string,
-    regionalPhoneCode: number,
     hash: string,
     businessName: string
 }
@@ -35,7 +34,6 @@ export const DefaultUser = {
     billAddress: DefaultAddress,
     postAddress: DefaultAddress,
     phone: '',
-    regionalPhoneCode: 0,
     hash: '',
     businessName: ''
 

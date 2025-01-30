@@ -76,8 +76,7 @@ export class MeComponent implements OnInit, AfterViewInit {
         email: user.email,
         phone: user.phone,
         gender: user.gender,
-        businessName: user.businessName,
-        regionalPhoneCode: user.regionalPhoneCode.toString()
+        businessName: user.businessName
       });
       user.email ? this.informationForm.get('email')?.disable() : this.informationForm.get('email')?.enable();
       user.phone ? this.informationForm.get('phone')?.disable() : this.informationForm.get('phone')?.enable();
