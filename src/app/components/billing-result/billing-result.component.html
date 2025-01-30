@@ -9,7 +9,7 @@
       <p><strong>Web Creation Service:</strong>&nbsp;<span class="text-muted">{{ billData.webCreationType }}</span></p>
       <p><strong>Number of Pages:</strong>&nbsp;<span class="text-muted">{{ billData.numberOfPages }}</span></p>
       <p>
-        <strong>Selected Options:</strong>
+        <strong>Selected Options: &emsp;</strong>
         <span *ngIf="getSelectedOptions().length > 0">
           <span *ngFor="let option of getSelectedOptions(); let isLast = last">
             <span class="badge bg-secondary">{{ option.name }} - {{ option.price }}</span
@@ -31,7 +31,7 @@
       <a (click)="go_back()" class="btn btn-secondary">
         <i class="bi bi-arrow-left"></i> Go Back
       </a>
-      <button class="btn btn-primary">
+      <button class="btn btn-primary" (click)="print()">
         <i class="bi bi-printer"></i> Print Bill
       </button>
     </div>

@@ -1,0 +1,172 @@
+<div class="container mt-5">
+  <h2 class="mb-4">Edit my informations</h2>
+  <form [formGroup]="informationForm" (ngSubmit)="onSubmit()">
+    <!-- Client Information Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-secondary text-white">My Information</div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-2">
+            <div class="input-group has-validation">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <div class="form-floating" [class.is-invalid]="informationForm.get('gender')?.invalid && informationForm.get('gender')?.touched">
+                <input 
+                  id="gender"
+                  [class.is-invalid]="informationForm.get('gender')?.invalid && informationForm.get('gender')?.touched"
+                  class="form-control" 
+                  formControlName="gender"
+                  placeholder="Type to search..."
+                  autocomplete="sex"
+                  list="gendersList" 
+                  required
+                >
+                <datalist id="gendersList">
+                  @for (gender of allGenders; track gender) {
+                    <option value="{{gender}}"></option>
+                  }
+                </datalist>
+                <label for="gender" class="form-label">Your gender</label>
+              </div>
+              <div class="invalid-feedback">
+                Gender is required.
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group has-validation">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <div class="form-floating" [class.is-invalid]="informationForm.get('firstName')?.invalid && informationForm.get('firstName')?.touched">
+                <input type="text" 
+                  id="firstName"
+                  [class.is-invalid]="informationForm.get('firstName')?.invalid && informationForm.get('firstName')?.touched"
+                  class="form-control" 
+                  formControlName="firstName"
+                  placeholder="Enter your first name" 
+                  autocomplete="given-name" 
+                  required
+                >
+                <label for="firstName" class="form-label">First name</label>
+              </div>
+              <div class="invalid-feedback">
+                Name is required.
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-floating">
+              <input type="text" 
+                id="middleName"
+                class="form-control" 
+                formControlName="middleName" 
+                placeholder="Enter your middle name" 
+                autocomplete="additional-name" 
+              >
+              <label for="middleName" class="form-label">Middle name</label>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group has-validation">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <div class="form-floating" [class.is-invalid]="informationForm.get('lastName')?.invalid && informationForm.get('lastName')?.touched">
+                <input type="text" 
+                  id="lastName"
+                  [class.is-invalid]="informationForm.get('lastName')?.invalid && informationForm.get('lastName')?.touched"
+                  class="form-control" 
+                  formControlName="lastName" 
+                  placeholder="Enter your last name" 
+                  autocomplete="family-name" 
+                  required
+                >
+                <label for="lastName" class="form-label">Last name</label>
+              </div>
+              <div class="invalid-feedback">
+                Last name is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
+            <div class="input-group has-validation">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <div class="form-floating" [class.is-invalid]="informationForm.get('email')?.invalid && informationForm.get('email')?.touched">
+                <input type="email" 
+                  id="email" 
+                  class="form-control" 
+                  [class.is-invalid]="informationForm.get('email')?.invalid && informationForm.get('email')?.touched"
+                  formControlName="email" 
+                  placeholder="Enter your email" 
+                  autocomplete="email" 
+                >
+                <label for="email" class="form-label">Your email</label>
+              </div>
+              <div class="invalid-feedback">
+                Valid email is required (john.doe&#64;example.net).
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="input-group">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <input type="tel" 
+                class="form-control" 
+                id="phone" 
+                placeholder="Enter your phone"
+                formControlName="phone"
+                autocomplete="mobile"
+                #phone
+              >
+            </div>
+          </div>
+          <!--<div class="col">
+            <div class="input-group has-validation">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <div class="form-floating" [class.is-invalid]="informationForm.get('phone')?.invalid && informationForm.get('phone')?.touched">
+                <input type="phone"
+                  id="phone" 
+                  class="form-control" 
+                  [class.is-invalid]="informationForm.get('phone')?.invalid && informationForm.get('phone')?.touched"
+                  formControlName="phone" 
+                  placeholder="Enter your phone" 
+                  autocomplete="mobile"
+                >
+                <label for="phone" class="form-label">Your phone</label>
+              </div>
+              <div class="invalid-feedback">
+                Valid phone is required (0123456789).
+              </div>
+            </div>
+          </div>-->
+        </div>
+        <div class="row mb-3">
+          <div class="input-group has-validation">
+            <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+            <div class="form-floating" [class.is-invalid]="informationForm.get('businessName')?.invalid && informationForm.get('businessName')?.touched">
+              <input type="businessName" 
+                id="businessName" 
+                class="form-control" 
+                [class.is-invalid]="informationForm.get('businessName')?.invalid && informationForm.get('businessName')?.touched"
+                formControlName="businessName" 
+                placeholder="Enter your business name" 
+                autocomplete="organization"
+              >
+              <label for="businessName" class="form-label">Your business name</label>
+            </div>
+            <div class="invalid-feedback">
+              Business name is required.
+            </div>
+          </div>
+        </div>
+        <app-address-input (addressesSelected)="onAddressSelected($event)"></app-address-input>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" 
+      class="btn btn-success" 
+      [class.btn-success]="!informationForm.invalid"
+      [class.btn-warning]="informationForm.invalid" 
+      [disabled]="informationForm.invalid"
+    >Update</button>
+  </form>
+</div>

@@ -1,0 +1,67 @@
+<div aria-live="assertive" aria-atomic="true" class="position-relative" *ngIf="loginErrors.length > 0">
+  <div class="toast-container top-0 end-0 p-3">
+    @for(error of loginErrors; track $index) {
+      <!-- Then put toasts within -->
+      <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="10000" >
+        <div class="toast-header">
+          <i class="fa-solid fa-triangle-exclamation fa-fade" style="color: #ff0000;"></i>
+          &nbsp;
+          <strong class="me-auto">Error while trying to login</strong>
+          <small class="text-body-secondary">{{ error.date }}</small>
+          <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close" (click)="closeAlert($index)"></button>
+        </div>
+        <div class="toast-body">
+          Error: [{{ error.code }}] {{ error.message }}
+        </div>
+      </div>
+    }
+  </div>
+</div>
+<div class="container mt-5 d-flex justify-content-center">
+  <div class="card shadow-lg" style="width: 28rem;">
+    <div class="card-body">
+      <h2 class="card-title text-center mb-4">Login</h2>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <!-- Username Field -->
+        <div class="form-floating mb-3">
+          <input
+            type="text"
+            id="username"
+            class="form-control"
+            formControlName="username"
+            [class.is-invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched"
+            placeholder="Enter your username"
+          />
+          <label for="username" class="form-label">Username</label>
+          <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" class="invalid-feedback">
+            Username is required.
+          </div>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-floating mb-3">
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            formControlName="password"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+            placeholder="Enter your password"
+          />
+          <label for="password" class="form-label">Password</label>
+          <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="invalid-feedback">
+            Password is required.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">
+            Login
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  

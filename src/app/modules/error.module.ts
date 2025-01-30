@@ -4,9 +4,14 @@ import { Error404Component } from '../components/errors/error404/error404.compon
 import { Error500Component } from '../components/errors/error500/error500.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './router.module';
+import { Error403Component } from '../components/errors/error403/error403.component';
 
 @NgModule({
-  declarations: [Error404Component, Error500Component],
+  declarations: [
+    Error403Component,
+    Error404Component, 
+    Error500Component
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

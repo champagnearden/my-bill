@@ -1,0 +1,58 @@
+<div class="row mb-3">
+    <div class="col">
+        <div class="input-group">
+            <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+            <div class="form-floating">
+                <input type="text" 
+                    class="form-control" 
+                    id="postAddress" 
+                    formControlName="postAddress"
+                    placeholder="Enter address" 
+                    autocomplete="shipping"
+                    (keyup)="isChecked ? billAddress.value=postAddress.value : ''; postAddressDirty=true"
+                    #postAddress 
+                >
+                <label for="postAddress">Postal address</label>
+            </div>
+        </div>
+        <div *ngIf="postAddressDirty && postAddress.value==''" class="text-danger">
+            Valid address is required.
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-floating">
+            <input type="text" 
+                class="form-control" 
+                id="billAddress"
+                formControlName="billAddress"
+                placeholder="Enter address" 
+                [disabled]="isChecked" 
+                [readOnly]="isChecked"
+                autocomplete="billing"
+                #billAddress 
+            >
+            <label for="billAddress">Bill address</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="form-check form-switch">
+            <input type="checkbox" 
+                class="form-check-input" 
+                role="switch" 
+                aria-checked="false"
+                id="same-address" 
+                (change)="sameAddressCheck($event)"
+                #sameAddress
+                [checked]="isChecked"
+            >
+            <label for="same-address" class="form-check-label custom-switch-label">Same address</label>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div #mapContainer style="height: 50vh; width: 100%;"></div>
+    </div>
+</div>

@@ -1,0 +1,85 @@
+{
+    "accounts": [
+        {
+            "id": 1,
+            "gender": "Male",
+            "firstName": "Admin",
+            "middleName": "admin",
+            "lastName": "ADMIN",
+            "email": "admin@test.com",
+            "password": "admin",
+            "role": "ADMIN",
+            "createdAt": "Sun Dec 22 2024 12:09:16 GMT+0100 (heure normale d'Europe centrale)",
+            "updatedAt": "Sun Dec 22 2024 12:09:16 GMT+0100 (heure normale d'Europe centrale)",
+            "username": "admin",
+            "billAddress": {
+                "formatted_address": "7 Impasse de l'Hôtel Neuf, Irodouër, France",
+                "lat": 48.2424666,
+                "lng": -1.9499147
+            },
+            "postAddress": {
+                "formatted_address": "7 Impasse de l'Hôtel Neuf, Irodouër, France",
+                "lat": 48.2424666,
+                "lng": -1.9499147
+            },
+            "phone": "0651310649",
+            "regionalPhoneCode": 33,
+            "hash": "jGl25bVBBBW96Qi9Te4V37Fnqchz/Eu4qB9vKrRIqRg=",
+            "businessName": "The admin's business"
+        },
+        {
+            "id": 2,
+            "gender": "Female",
+            "firstName": "User",
+            "middleName": "user",
+            "lastName": "USER",
+            "email": "user@example.com",
+            "password": "user",
+            "role": "USER",
+            "createdAt": "Sun Dec 22 2024 12:09:16 GMT+0100 (heure normale d'Europe centrale)",
+            "updatedAt": "Sun Dec 22 2024 12:09:16 GMT+0100 (heure normale d'Europe centrale)",
+            "username": "user",
+            "billAddress": {
+                "formatted_address": "7 Impasse de l'Hôtel Neuf, Irodouër, France",
+                "lat": 48.2424666,
+                "lng": -1.9499147
+            },
+            "postAddress":{
+                "formatted_address": "7 Impasse de l'Hôtel Neuf, Irodouër, France",
+                "lat": 48.2424666,
+                "lng": -1.9499147
+            },
+            "phone": "0123456789",
+            "hash": "BPiZbadjt6lpsQKO4wB1aerzpjVIbdqyEdUSyFud+Ps=",
+            "regionalPhoneCode": 44,
+            "businessName": "The user's business"
+        },
+        {
+            "id": 3,
+            "gender": "Prefer not to say",
+            "firstName": "Marcel",
+            "middleName": "marcel",
+            "lastName": "ADMIN",
+            "email": "marcel@yopmail.com",
+            "password": "Orange99#",
+            "role": "ADMIN",
+            "createdAt": "Sat Jan 25 2025 18:49:25 GMT+0100 (heure normale d'Europe centrale)",
+            "updatedAt": "Sat Jan 25 2025 18:49:25 GMT+0100 (heure normale d'Europe centrale)",
+            "username": "marcel",
+            "billAddress": {
+                "formatted_address": "7 Impasse de l'Hôtel Neuf, Irodouër, France",
+                "lat": 48.2424666,
+                "lng": -1.9499147
+            },
+            "postAddress": {
+                "formatted_address": "7 Impasse de l'Hôtel Neuf, Irodouër, France",
+                "lat": 48.2424666,
+                "lng": -1.9499147
+            },
+            "regionalPhoneCode": 1,
+            "phone": "0299398616",
+            "hash": "Y60fw7vEP+dbpf9wH05kA8HH36HlC38y5BfvS4KtHcQ=",
+            "businessName": "Orange Business SA"
+        }
+    ]
+}
