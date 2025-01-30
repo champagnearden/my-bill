@@ -90,6 +90,11 @@ export class MeComponent implements OnInit, AfterViewInit {
     this.addresses = event;
   }
 
+  cancel(): void {
+    this.router.navigate(['/']);
+    this.informationForm.reset();
+  }
+
   onSubmit(): void {
     if (this.informationForm.valid) {
       const user = this.userService.userData();

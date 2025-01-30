@@ -2,7 +2,7 @@
   <h2 class="mb-4">Edit my informations</h2>
   <form [formGroup]="informationForm" (ngSubmit)="onSubmit()">
     <!-- Client Information Section -->
-    <div class="card mb-4">
+    <div class="card mb-1">
       <div class="card-header bg-secondary text-white">My Information</div>
       <div class="card-body">
         <div class="row mb-3">
@@ -161,12 +161,22 @@
       </div>
     </div>
 
-    <!-- Submit Button -->
-    <button type="submit" 
-      class="btn btn-success" 
-      [class.btn-success]="!informationForm.invalid"
-      [class.btn-warning]="informationForm.invalid" 
-      [disabled]="informationForm.invalid"
-    >Update</button>
+    <div class="row">
+      <div class="col">
+        <button type="reset" 
+          class="btn btn-danger w-100"
+          (click)="cancel()"
+        >Cancel</button>
+      </div>
+      <div class="col">
+        <!-- Submit Button -->
+        <button type="submit" 
+          class="btn btn-success w-100" 
+          [class.btn-success]="!informationForm.invalid"
+          [class.btn-warning]="informationForm.invalid" 
+          [disabled]="informationForm.invalid"
+        >Update</button>
+      </div>
+    </div>
   </form>
 </div>

@@ -40,7 +40,6 @@ export class UserService {
      */
     login(username: string, password: string): UserModel {
         const hashed = this.hash(password);
-        console.log(hashed);
         const acc:UserModel[] = accounts.accounts;
         for(let account of acc) {
             if(account.username === username && account.hash === hashed) {
