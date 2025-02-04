@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { RoleModel, UserModel } from "../../../assets/models/user.model";
-import { accounts, roles } from "../../../assets/accounts.json";
+import { accounts, roles } from "../../../assets/accounts";
 import { Observable, of } from "rxjs";
 
 @Injectable({
@@ -8,8 +8,10 @@ import { Observable, of } from "rxjs";
 })
 export class AdminService {
 
+    private readonly accounts:UserModel[]= accounts;
+
     getUsers(): Observable<UserModel[]> {
-        return of<UserModel[]>(accounts as UserModel[]);
+        return of<UserModel[]>(this.accounts);
     }
 
     getRoles(): Observable<RoleModel[]> {
@@ -17,9 +19,9 @@ export class AdminService {
     }
 
     updateUser(user: UserModel): Observable<undefined> {
-        accounts.forEach((account: UserModel, index: number) => {
+        this.accounts.forEach((account: UserModel, index: number) => {
             if (account.id === user.id) {
-                accounts[index] = user;
+                this.accounts[index] = user;
                 console.log("udpdated user "+user.username);
                 alert("udpdated user "+user.username)
             }
@@ -28,9 +30,9 @@ export class AdminService {
     }
 
     deleteUser(user: UserModel): Observable<undefined> {
-        accounts.forEach((account: UserModel, index: number) => {
+        this.accounts.forEach((account: UserModel, index: number) => {
             if (account.id === user.id) {
-                accounts.splice(index, 1);
+                this.accounts.splice(index, 1);
                 console.log("deleted user "+user.username);
                 alert("deleted user "+user.username)
             }
@@ -39,7 +41,7 @@ export class AdminService {
     }
 
     createUser(user: UserModel): Observable<undefined> {
-        accounts.push(user);
+        this.accounts.push(user);
         console.log("created user "+user.username);
         alert("created user "+user.username)
         return of<undefined>(undefined);

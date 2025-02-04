@@ -1,5 +1,5 @@
 import { Injectable, WritableSignal, signal } from "@angular/core";
-import accounts from "../../../assets/accounts.json";
+import { accounts } from "../../../assets/accounts";
 import { DefaultUser, UserModel } from "../../../assets/models/user.model";
 import CryptoJS from 'crypto-js';
 import { LoginError } from "../../../assets/models/errors.model";
@@ -40,7 +40,7 @@ export class UserService {
      */
     login(username: string, password: string): UserModel {
         const hashed = this.hash(password);
-        const acc:UserModel[] = accounts.accounts;
+        const acc:UserModel[] = accounts;
         for(let account of acc) {
             if(account.username === username && account.hash === hashed) {
                 return account;

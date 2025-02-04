@@ -1,11 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MeDialogInject } from '../../../assets/models/user.model';
+import { MeDialogInject, GENDERS} from '../../../assets/models/user.model';
 import { AddressModel } from '../../../assets/models/address.model';
 import { UserService } from '../../services/user/user.service';
 import { AddressesData } from '../address-input/address-input.component';
-import { GENDERS } from '../../../environments/environment';
-import 'intl-tel-input/build/css/intlTelInput.css';
 import intlTelInput from 'intl-tel-input';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponent } from '../app/app.component';
