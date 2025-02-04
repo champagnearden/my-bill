@@ -11,6 +11,8 @@ import { CustomRouteReuseStrategy } from '../app.routes';
 import { LoginModule } from './login.module';
 import { MeComponent } from '../components/me/me.component';
 import { AddressInputComponent } from "../components/address-input/address-input.component";
+import { AdminModule } from './admin.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { AddressInputComponent } from "../components/address-input/address-input
     BillingModule,
     LoginModule,
     ReactiveFormsModule,
-    AddressInputComponent
+    AddressInputComponent,
+    AdminModule,
+    MatDialogModule,
   ],
   providers: [
     provideHttpClient(),

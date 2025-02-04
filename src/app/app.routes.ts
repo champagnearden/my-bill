@@ -21,7 +21,6 @@ export const routes: Routes = [
   { path: 'pricing', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'me', component: MeComponent },
   { path: 'admin', component: AdminHomeComponent },
   { path: 'admin/users', component: UsersComponent },
   { path: 'admin/prices', component: PricesComponent },

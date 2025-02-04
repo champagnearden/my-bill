@@ -1,40 +1,66 @@
 import { AddressModel, DefaultAddress } from "./address.model"
 
 export type UserModel = {
-    id: number,
-    gender: string
-    firstName: string,
-    middleName?: string,
-    lastName: string,
-    email: string,
-    password?: string,
-    role: string,
-    createdAt: string,
-    updatedAt: string,
-    username: string,
+    businessName: string,
     billAddress: AddressModel,
-    postAddress: AddressModel,
-    phone: string,
+    createdAt: number,
+    email: string,
+    firstName: string,
+    gender: string
     hash: string,
-    businessName: string
+    id: number,
+    lastName: string,
+    middleName: string,
+    phone: PhoneModel,
+    postAddress: AddressModel,
+    role: string,
+    updatedAt: number,
+    username: string,
 }
 
-export const DefaultUser = {
+export type RoleModel = {
+    name: string, // uppercased
+    y: number
+    prop?: number
+}
+
+export type MeDialogInject = {
+    userInfo: UserModel,
+    title: string,
+    from: string
+}
+
+export type PhoneModel = {
+    iso2: string,
+    dialCode: string,
+    fullNumber: string
+}
+
+export const DefaultPhone: PhoneModel = {
+    iso2: 'fr',
+    dialCode: '33',
+    fullNumber: ''
+}
+
+export const DefaultUser: UserModel = {
     id: 0,
     gender: '',
     firstName: '',
     middleName: '',
     lastName: '',
     email: '',
-    password: '',
     role: '',
-    createdAt: '',
-    updatedAt: '',
+    createdAt: 0,
+    updatedAt: 0,
     username: '',
     billAddress: DefaultAddress,
     postAddress: DefaultAddress,
-    phone: '',
+    phone: DefaultPhone,
     hash: '',
-    businessName: ''
+    businessName: '',
+}
 
+export const DefaultRole: RoleModel = {
+    name: "",
+    y: 0
 }

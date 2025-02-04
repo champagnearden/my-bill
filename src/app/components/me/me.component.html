@@ -1,12 +1,34 @@
-<div class="container mt-5">
-  <h2 class="mb-4">Edit my informations</h2>
+<div class="container mt-5 mb-5">
+  <h2 class="mb-4">{{ dataModel.title }}</h2>
   <form [formGroup]="informationForm" (ngSubmit)="onSubmit()">
     <!-- Client Information Section -->
     <div class="card mb-1">
       <div class="card-header bg-secondary text-white">My Information</div>
       <div class="card-body">
         <div class="row mb-3">
-          <div class="col-2">
+          <div class="col">
+            <div class="input-group has-validation">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <div class="form-floating" [class.is-invalid]="informationForm.get('username')?.invalid && informationForm.get('gender')?.touched">
+                <input 
+                  id="username"
+                  [class.is-invalid]="informationForm.get('username')?.invalid && informationForm.get('username')?.touched"
+                  class="form-control" 
+                  formControlName="username"
+                  placeholder="Your username"
+                  autocomplete=on
+                  required
+                >
+                <label for="username" class="form-label">Username</label>
+              </div>
+              <div class="invalid-feedback">
+                Username is required.
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <div class="col">
             <div class="input-group has-validation">
               <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
               <div class="form-floating" [class.is-invalid]="informationForm.get('gender')?.invalid && informationForm.get('gender')?.touched">
@@ -16,7 +38,7 @@
                   class="form-control" 
                   formControlName="gender"
                   placeholder="Type to search..."
-                  autocomplete="sex"
+                  autocomplete=sex
                   list="gendersList" 
                   required
                 >
@@ -25,7 +47,7 @@
                     <option value="{{gender}}"></option>
                   }
                 </datalist>
-                <label for="gender" class="form-label">Your gender</label>
+                <label for="gender" class="form-label">Gender</label>
               </div>
               <div class="invalid-feedback">
                 Gender is required.
@@ -52,6 +74,8 @@
               </div>
             </div>
           </div>
+        </div>
+        <div class="row mb-3">
           <div class="col">
             <div class="form-floating">
               <input type="text" 
@@ -110,7 +134,8 @@
               <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
               <input type="tel" 
                 class="form-control" 
-                id="phone" 
+                id="phone"
+                name="phone"
                 placeholder="Enter your phone"
                 formControlName="phone"
                 autocomplete="mobile"
@@ -118,46 +143,29 @@
               >
             </div>
           </div>
-          <!--<div class="col">
-            <div class="input-group has-validation">
-              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
-              <div class="form-floating" [class.is-invalid]="informationForm.get('phone')?.invalid && informationForm.get('phone')?.touched">
-                <input type="phone"
-                  id="phone" 
-                  class="form-control" 
-                  [class.is-invalid]="informationForm.get('phone')?.invalid && informationForm.get('phone')?.touched"
-                  formControlName="phone" 
-                  placeholder="Enter your phone" 
-                  autocomplete="mobile"
-                >
-                <label for="phone" class="form-label">Your phone</label>
-              </div>
-              <div class="invalid-feedback">
-                Valid phone is required (0123456789).
-              </div>
-            </div>
-          </div>-->
         </div>
         <div class="row mb-3">
-          <div class="input-group has-validation">
-            <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
-            <div class="form-floating" [class.is-invalid]="informationForm.get('businessName')?.invalid && informationForm.get('businessName')?.touched">
-              <input type="businessName" 
-                id="businessName" 
-                class="form-control" 
-                [class.is-invalid]="informationForm.get('businessName')?.invalid && informationForm.get('businessName')?.touched"
-                formControlName="businessName" 
-                placeholder="Enter your business name" 
-                autocomplete="organization"
-              >
-              <label for="businessName" class="form-label">Your business name</label>
-            </div>
-            <div class="invalid-feedback">
-              Business name is required.
+          <div class="col-12">
+            <div class="input-group has-validation">
+              <a class="input-group-text text-danger text-decoration-none" title="This field is required"><b>*</b></a>
+              <div class="form-floating" [class.is-invalid]="informationForm.get('businessName')?.invalid && informationForm.get('businessName')?.touched">
+                <input type="businessName" 
+                  id="businessName" 
+                  class="form-control" 
+                  [class.is-invalid]="informationForm.get('businessName')?.invalid && informationForm.get('businessName')?.touched"
+                  formControlName="businessName" 
+                  placeholder="Enter your business name" 
+                  autocomplete="organization"
+                >
+                <label for="businessName" class="form-label">Your business name</label>
+              </div>
+              <div class="invalid-feedback">
+                Business name is required.
+              </div>
             </div>
           </div>
         </div>
-        <app-address-input (addressesSelected)="onAddressSelected($event)"></app-address-input>
+        <app-address-input (addressesSelected)="onAddressSelected($event)" [billAddress]="billAddress" [postAddress]="postAddress"></app-address-input>
       </div>
     </div>
 

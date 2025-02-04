@@ -1,1 +1,201 @@
-<p>admin-home works!</p>
+<div class="loading-overlay" *ngIf="usersLoading">
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100 text-light">
+        <span class="loader-spinner"></span>
+        <h1 class="text-light">Loading users</h1>
+        <span class="loader-dots"></span>
+    </div>
+</div>
+<div class="container-fluid text-center table-responsive mb-3" *ngIf="!usersLoading">
+    <div class="text-center">
+        <h1>Users list</h1>
+    </div>
+    <div class="text-end">
+        <button class="btn btn-secondary me-2" (click)="getUsers()"><i class="fa-solid fa-arrow-rotate-right"></i> Refresh</button>
+        <button class="btn btn-success" (click)="openDialog()"><i class="fa-solid fa-user-plus"></i> Add user</button>
+    </div>
+    <table class="table table-striped table-hover align-middle mb-5">
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Role</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        @for (user of users; track user.id) {
+            <tr>
+                <td>
+                    <div class="copy-button-wrapper position-relative d-inline-block">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" name="uname-{{ user.id }}" id="uname-{{ user.id }}" value="{{ user.username }}" class="form-control" readonly>
+                            <button class="btn btn-info" (click)="copy('username' + user.id, user.username)"><i class="fa-regular fa-clone"></i></button>
+                        </div>
+                        <div *ngIf="copied['username' + user.id]" class="copied-bubble">
+                            Copied !
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="copy-button-wrapper position-relative d-inline-block">
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-address-card"></i></span>
+                            <input type="text" 
+                                name="name-{{user.id}}" 
+                                id="name-{{user.id}}" 
+                                value="{{user.firstName}} {{user.middleName ? (user.middleName.charAt(0)+'. ' | uppercase):'' }}{{user.lastName}}" 
+                                class="form-control" 
+                                readonly>
+                            <button class="btn btn-info" (click)="copy('name' + user.id, user.firstName, user.middleName ? (user.middleName.charAt(0).toUpperCase()+ '.'): '', user.lastName)"><i class="fa-regular fa-clone"></i></button>
+                        </div>
+                        <div *ngIf="copied['name' + user.id]" class="copied-bubble">
+                            Copied !
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="copy-button-wrapper position-relative d-inline-block">
+                        <div class="input-group justify-content-center">
+                            <span class="input-group-text"><i class="fa-solid fa-paper-plane"></i></span>
+                            <a href="mailto:{{ user.email }}?{{getBody(user.id)}}" target="_blank" class="btn btn-secondary form-control">{{ user.email }}</a>
+                            <button class="btn btn-info" (click)="copy('email' + user.id, user.email)"><i class="fa-regular fa-clone"></i></button>
+                        </div>
+                        <div *ngIf="copied['email' + user.id]" class="copied-bubble">
+                            Copied !
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="copy-button-wrapper position-relative d-inline-block">
+                        <div class="input-group justify-content-center">
+                            <span class="input-group-text"><i class="fa-solid fa-phone"></i></span>
+                            <a href="tel:{{ user.phone.fullNumber }}" target="_blank" class="btn btn-secondary form-control">{{ user.phone.fullNumber }}</a>
+                            <button class="btn btn-info" (click)="copy('phone' + user.id, user.phone.fullNumber)"><i class="fa-regular fa-clone"></i></button>
+                        </div>
+                        <div *ngIf="copied['phone' + user.id]" class="copied-bubble">
+                            Copied !
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="input-group justify-content-center">
+                        <span class="input-group-text"><i class="fa-solid fa-id-card-clip"></i></span>
+                        <select class="form-select" aria-label="Role selection">
+                            <option disabled>-- Role --</option>
+                            @for (role of roles; track role.name) {
+                                <option value="{{ role.name }}" [selected]="user.role === role.name">{{ role.name | titlecase }}</option>
+                            }
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <button class="btn btn-success" (click)="openDialog(user)">
+                        <i class="fa-solid fa-user-pen"></i>
+                    </button>
+                </td>
+                <td>
+                    <button class="btn btn-danger">
+                        <i class="fa-solid fa-user-slash"></i>
+                    </button>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+<div class="loading-overlay" *ngIf="!usersLoading && statsLoading.countries && statsLoading.roles">
+    <div class="d-flex flex-column justify-content-center align-items-center vh-100 text-light">
+        <span class="loader-spinner"></span>
+        <h1 class="text-light">Loading stats</h1>
+        <span class="loader-dots"></span>
+    </div>
+</div>
+<hr>
+<div class="container mb-5">
+    <div class="text-center mb-5">
+        <h1>Users stats</h1>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        <div class="col" *ngIf="!statsLoading.countries">
+            <div class="card">
+                <canvasjs-chart [options]="countriesOptions" class="card-img-top"></canvasjs-chart>
+                <div class="card-body">
+                    <h5 class="card-title">{{ countriesOptions.title.text}}</h5>
+                    <p>A bit of context isn't that bad I think...</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Last updated: {{ lastUpdated | date:"medium" }}</small>
+                  </div>
+            </div>
+        </div>
+        <div class="col" *ngIf="!statsLoading.roles">
+            <div class="card">
+                <canvasjs-chart [options]="rolesOptions" class="card-img-top"></canvasjs-chart>
+                <div class="card-body">
+                    <h5 class="card-title">{{ rolesOptions.title.text}}</h5>
+                    <p>A bit of context isn't that bad I think...</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Last updated: {{ lastUpdated | date:"medium" }}</small>
+                </div>
+            </div>
+        </div>
+        <div class="col" *ngIf="!statsLoading.genders">
+            <div class="card">
+                <canvasjs-chart [options]="genderOptions" class="card-img-top"></canvasjs-chart>
+                <div class="card-body">
+                    <h5 class="card-title">{{ genderOptions.title.text}}</h5>
+                    <p>A bit of context isn't that bad I think...</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Last updated: {{ lastUpdated | date:"medium" }}</small>
+                </div>
+            </div>
+        </div>
+        <div class="col" *ngIf="!statsLoading.usersCRUD">
+            <div class="card">
+                <canvasjs-chart [options]="usersCRUDOptions" class="card-img-top"></canvasjs-chart>
+                <div class="card-body">
+                    <h5 class="card-title">{{ usersCRUDOptions.title.text}}</h5>
+                    <div class="container-fluid text-center table-responsive">
+                        <table class="table table-striped table-hover align-middle">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Created at</th>
+                                    <th>Modified on</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (user of users; track user.id) {
+                                    <tr>
+                                        <td>{{ user.username }}</td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="date" name="stat-create-date-{{user.id}}" id="stat-create-date-{{user.id}}" class="form-control" value="{{ user.createdAt | date:'YYYY-MM-dd' }}">
+                                                <span class="input-group-text">{{ user.createdAt | date:'hh:mm:ss' }}</span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="input-group">
+                                                <input type="date" name="stat-update-date-{{user.id}}" id="stat-update-date-{{user.id}}" class="form-control" value="{{ user.updatedAt | date:'YYYY-MM-dd' }}">
+                                                <span class="input-group-text">{{ user.updatedAt | date:'hh:mm:ss' }}</span>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <small class="text-body-secondary">Last updated: {{ lastUpdated | date:"medium" }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

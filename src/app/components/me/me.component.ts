@@ -1,13 +1,14 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { UserModel } from '../../../assets/models/user.model';
-import { DefaultAddress } from '../../../assets/models/address.model';
+import { MeDialogInject } from '../../../assets/models/user.model';
+import { AddressModel } from '../../../assets/models/address.model';
 import { UserService } from '../../services/user/user.service';
 import { AddressesData } from '../address-input/address-input.component';
-import { PHONE_REGEX, GENDERS } from '../../../environments/environment';
+import { GENDERS } from '../../../environments/environment';
 import 'intl-tel-input/build/css/intlTelInput.css';
 import intlTelInput from 'intl-tel-input';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AppComponent } from '../app/app.component';
 
 
 @Component({
@@ -17,28 +18,36 @@ import intlTelInput from 'intl-tel-input';
   standalone: false,
 })
 export class MeComponent implements OnInit, AfterViewInit {
+  dataModel: MeDialogInject;
   @ViewChild('phone') phone !: ElementRef<HTMLInputElement>;
   informationForm: FormGroup;
-  addresses: AddressesData = {
-    billAddress: DefaultAddress,
-    postAddress: DefaultAddress
-  }
   allGenders: string[] = GENDERS;
+  iti: any;
+  billAddress: AddressModel;
+  postAddress: AddressModel;
   
   constructor(
     private readonly fb: FormBuilder, 
-    private readonly router: Router,
     private readonly userService: UserService,
+    public dialogRef: MatDialogRef<MeComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
+    this.dataModel = { ...data };
+    const user = this.dataModel.userInfo;
     this.informationForm = this.fb.group({
-      firstName: ['', Validators.required],
-      middleName: [''],
-      lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      phone: ['', Validators.required],
-      gender: ['', Validators.required],
-      businessName: ['', Validators.required]
+      firstName: [user.firstName, Validators.required],
+      middleName: [user.middleName],
+      lastName: [user.lastName, Validators.required],
+      email: [user.email, [Validators.required, Validators.email]],
+      phone: [user.phone.fullNumber.slice(user.phone.dialCode.length+1)],
+      gender: [user.gender, Validators.required],
+      businessName: [user.businessName, Validators.required],
+      billAddress: [user.billAddress],
+      postAddress: [user.postAddress],
+      username: [user.username, [Validators.required, Validators.pattern(this.dataModel.userInfo.username)]]
     });
+    this.billAddress = user.billAddress;
+    this.postAddress = user.postAddress;
   }
 
   async getCountryCode() {
@@ -47,9 +56,10 @@ export class MeComponent implements OnInit, AfterViewInit {
       .then((data) => data.country_code);
     return ret.toLowerCase();
   }
+
   async ngAfterViewInit(): Promise<void> {
-    intlTelInput(this.phone.nativeElement, {
-      initialCountry: await this.getCountryCode(),
+    this.iti = intlTelInput(this.phone.nativeElement, {
+      initialCountry: this.dataModel.userInfo.phone.iso2 || await this.getCountryCode(),
       separateDialCode: true,
       utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js",
     });
@@ -67,47 +77,33 @@ export class MeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    const user: UserModel = this.userService.userData();
-    if (user) {
-      this.informationForm.patchValue({
-        firstName: user.firstName,
-        middleName: user.middleName,
-        lastName: user.lastName,
-        email: user.email,
-        phone: user.phone,
-        gender: user.gender,
-        businessName: user.businessName
-      });
-      user.email ? this.informationForm.get('email')?.disable() : this.informationForm.get('email')?.enable();
-      user.phone ? this.informationForm.get('phone')?.disable() : this.informationForm.get('phone')?.enable();
+    if (this.dataModel.from == AppComponent.name) {
+      this.informationForm.get('email')?.disable();
+      this.informationForm.get('phone')?.disable();
     }
   }
 
   onAddressSelected(event: AddressesData) {
     this.informationForm.patchValue({
-      addresses: event
+      billAddress: event.billAddress,
+      postAddress: event.postAddress
     });
-    this.addresses = event;
   }
 
   cancel(): void {
-    this.router.navigate(['/']);
     this.informationForm.reset();
+    this.dialogRef.close();
   }
 
   onSubmit(): void {
     if (this.informationForm.valid) {
-      const user = this.userService.userData();
-      user.gender = this.informationForm.value.gender;
-      user.firstName = this.informationForm.value.firstName;
-      user.middleName = this.informationForm.value.middleName;
-      user.lastName = this.informationForm.value.lastName;
-      user.businessName = this.informationForm.value.businessName;
-      user.billAddress = this.addresses.billAddress;
-      user.postAddress = this.addresses.postAddress;
-      // Save to the signal
-      this.userService.setUserData(user);
-      this.router.navigate(['/']);
+      const ret = this.informationForm.getRawValue();
+      ret.phone = {
+        iso2: this.iti.getSelectedCountryData().iso2,
+        dialCode: this.iti.getSelectedCountryData().dialCode,
+        fullNumber:this.iti.getNumber()
+      };
+      this.dialogRef.close(ret);
       this.informationForm.reset();
     }
   }

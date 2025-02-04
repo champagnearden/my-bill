@@ -1,6 +1,6 @@
 <header>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-5">
         <div class="container-fluid">
         <a class="navbar-brand" routerLink="/">DemBeck Coding</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,7 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ user().firstName }}</a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" routerLink="/me">My infos</a></li>
+                            <li><a class="dropdown-item" (click)="openMeDialog()">My infos</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" routerLink="/admin" *ngIf="user().role == 'ADMIN'">Admin panel</a></li>
                             <li><a class="dropdown-item" routerLink="/admin/users" *ngIf="user().role == 'ADMIN'">Users panel</a></li>
@@ -40,14 +40,15 @@
         </div>
     </nav>
 </header>
-  
-<div class="loading-overlay" *ngIf="loading">
-    <div class="d-flex flex-column justify-content-center align-items-center vh-100 text-light">
-        <span class="loader-spinner"></span>
-        <h1 class="text-light">Loading</h1>
-        <span class="loader-dots"></span>
+<body>
+    <div class="loading-overlay" *ngIf="loading">
+        <div class="d-flex flex-column justify-content-center align-items-center vh-100 text-light">
+            <span class="loader-spinner"></span>
+            <h1 class="text-light">Loading</h1>
+            <span class="loader-dots"></span>
+        </div>
     </div>
-</div>
-<router-outlet></router-outlet>
+    <router-outlet *ngIf="!loading"></router-outlet>
+</body>
 <footer></footer>
   

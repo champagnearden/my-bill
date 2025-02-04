@@ -5,6 +5,8 @@ import { AppRoutingModule } from './router.module';
 import { AdminHomeComponent } from '../components/admin/home/admin-home.component';
 import { PricesComponent } from '../components/admin/prices/prices.component';
 import { UsersComponent } from '../components/admin/users/users.component';
+import { AdminService } from '../services/admin/admin.service';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
 
 @NgModule({
   declarations: [
@@ -16,7 +18,9 @@ import { UsersComponent } from '../components/admin/users/users.component';
     BrowserModule,
     AppRoutingModule,
     CommonModule,
+    CanvasJSAngularChartsModule,
   ],
+  providers: [AdminService],
 })
-export class LoginModule {}
+export class AdminModule {}
 

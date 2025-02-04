@@ -1,9 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { MAPS_API_KEY } from '../../../environments/environment';
 import { Subject, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../services/user/user.service';
-import { UserModel } from '../../../assets/models/user.model';
 import { AddressModel, DefaultAddress } from '../../../assets/models/address.model';
 
 declare global {
@@ -24,8 +23,10 @@ export interface AddressesData {
   imports:[ CommonModule ]
 })
 export class AddressInputComponent implements OnInit, OnDestroy {
-  @ViewChild('billAddress') billAddress!: ElementRef<HTMLInputElement>;
-  @ViewChild('postAddress') postAddress!: ElementRef<HTMLInputElement>;
+  @Input() billAddress: AddressModel = DefaultAddress;
+  @Input() postAddress: AddressModel = DefaultAddress;
+  @ViewChild('billAddress') billAddressRef!: ElementRef<HTMLInputElement>;
+  @ViewChild('postAddress') postAddressRef!: ElementRef<HTMLInputElement>;
   @ViewChild('mapContainer') mapContainer!: ElementRef<HTMLDivElement>;
   @ViewChild('sameAddress') sameAddress!: ElementRef<HTMLInputElement>;
   selectedPlaceBillAddress: google.maps.places.PlaceResult | null = null;
@@ -44,7 +45,10 @@ export class AddressInputComponent implements OnInit, OnDestroy {
   isChecked = false;
   postAddressDirty = false;
 
-  constructor( private readonly userService: UserService){}
+  constructor(
+    private readonly userService: UserService,
+  ){
+  }
 
   @Output() addressesSelected = new EventEmitter<AddressesData>();
 
@@ -66,19 +70,19 @@ export class AddressInputComponent implements OnInit, OnDestroy {
   }
 
   onMapReady() {
-    const user: UserModel = this.userService.userData();
-    this.billAddress.nativeElement.value = user.billAddress.formatted_address;
-    this.postAddress.nativeElement.value = user.postAddress.formatted_address;
-    this.oldAddress = {...user.billAddress, name: user.billAddress.formatted_address};
-    this.isChecked = user.billAddress == user.postAddress;
-    this.selectedPlacePostAddress = {formatted_address: user.postAddress.formatted_address, geometry: {location: new google.maps.LatLng(user.postAddress.lat, user.postAddress.lng)}} as google.maps.places.PlaceResult;
-    this.selectedPlaceBillAddress = {formatted_address: user.billAddress.formatted_address, geometry: {location: new google.maps.LatLng(user.billAddress.lat, user.billAddress.lng)}} as google.maps.places.PlaceResult;
+    this.postAddressRef.nativeElement.value = this.postAddress.formatted_address;
+    this.billAddressRef.nativeElement.value = this.billAddress.formatted_address;
+    this.oldAddress = {...this.billAddress, name: this.billAddress.formatted_address};
+    this.isChecked = this.billAddress == this.postAddress;
+    this.selectedPlacePostAddress = {formatted_address: this.postAddress.formatted_address, geometry: {location: new google.maps.LatLng(this.postAddress.lat, this.postAddress.lng)}} as google.maps.places.PlaceResult;
+    this.selectedPlaceBillAddress = {formatted_address: this.billAddress.formatted_address, geometry: {location: new google.maps.LatLng(this.billAddress.lat, this.billAddress.lng)}} as google.maps.places.PlaceResult;
     this.sameAddressCheck({target:{checked:this.isChecked}});
   }
 
   private initMap() {
+    const {lat, lng} = DefaultAddress;
     this.map = new google.maps.Map(this.mapContainer.nativeElement, {
-        center: { lat: 47.6449138, lng: -2.7490848}, // Default center (Vannes)
+        center: { lat, lng}, // Default center (Vannes)
         zoom: 17
     });
   }
@@ -133,7 +137,7 @@ export class AddressInputComponent implements OnInit, OnDestroy {
       this.placeSubjectPostAddress.next(placePostAddress);
       if (this.sameAddress.nativeElement.checked){
         this.placeSubjectBillAddress.next(placePostAddress); // set the marker
-        this.billAddress.nativeElement.value = this.postAddress.nativeElement.value;
+        this.billAddressRef.nativeElement.value = this.postAddressRef.nativeElement.value;
       }
     }
     this.emit();
@@ -145,8 +149,8 @@ export class AddressInputComponent implements OnInit, OnDestroy {
       fields: ['address_components', 'geometry', 'name', 'formatted_address'],
       types: ['address'],
     };
-    this.autocompleteBillAddress = new google.maps.places.Autocomplete(this.billAddress.nativeElement, autocompleteOptions);
-    this.autocompletePostAddress = new google.maps.places.Autocomplete(this.postAddress.nativeElement, autocompleteOptions);
+    this.autocompleteBillAddress = new google.maps.places.Autocomplete(this.billAddressRef.nativeElement, autocompleteOptions);
+    this.autocompletePostAddress = new google.maps.places.Autocomplete(this.postAddressRef.nativeElement, autocompleteOptions);
 
     this.autocompleteBillAddress.addListener('place_changed', () => this.updateBillAddress());
     this.autocompletePostAddress.addListener('place_changed', () => this.updatePostAddress());
@@ -194,9 +198,9 @@ export class AddressInputComponent implements OnInit, OnDestroy {
   sameAddressCheck(event: any) {
     if (event.target.checked) {
       this.oldAddress = this.autocompleteBillAddress?.getPlace();
-      this.billAddress.nativeElement.value = this.postAddress.nativeElement.value.toString();
+      this.billAddressRef.nativeElement.value = this.postAddressRef.nativeElement.value.toString();
     } else {
-        this.billAddress.nativeElement.value = this.oldAddress?.formatted_address?.toString() ?? '';
+        this.billAddressRef.nativeElement.value = this.oldAddress?.formatted_address?.toString() ?? '';
     }
     this.updateBillAddress();
     this.isChecked = !this.isChecked;
