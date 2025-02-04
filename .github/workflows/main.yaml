@@ -2,7 +2,7 @@ name: Build and Deploy Angular App
 on:
   push:
     branches:
-      - '\d+-[a-z0-9\-]+'
+      - feature/*
       - dev
       - uat
       - prod
@@ -29,11 +29,31 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
+      - name: Set ENV based on branch
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          echo "Branch is $BRANCH"
+
+          # If branch is "dev" OR it matches the pattern of digits followed by a dash and more characters
+          if [[ "$BRANCH" == "dev" || "$BRANCH" =~ ^[0-9]+-[a-z0-9-]+$ ]]; then
+            echo "ENV=dev" >> $GITHUB_ENV
+
+          # If branch is "uat"
+          elif [[ "$BRANCH" == "uat" ]]; then
+            echo "ENV=uat" >> $GITHUB_ENV
+
+          # If branch is "prod"
+          elif [[ "$BRANCH" == "prod" ]]; then
+            echo "ENV=prod" >> $GITHUB_ENV
+
+          # Fallback if something else slips through
+          else
+            echo "ENV=dev" >> $GITHUB_ENV
+          fi
+
       - name: Build Angular App
         run: | 
-          BRANCH=${GITHUB_REF##*/}
-          echo "Building for branch: $BRANCH"
-          npm run build:$BRANCH
+          npm run build:$ENV
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
