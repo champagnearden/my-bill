@@ -35,7 +35,7 @@ jobs:
           echo "Branch is $BRANCH"
 
           # If branch is "dev" OR it matches the pattern of digits followed by a dash and more characters
-          if [[ "$BRANCH" == "dev" || "$BRANCH" =~ ^[0-9]+-[a-z0-9-]+$ ]]; then
+          if [[ "$BRANCH" == "dev" || "$BRANCH" =~ feature/* ]]; then
             echo "ENV=dev" >> $GITHUB_ENV
 
           # If branch is "uat"
@@ -54,6 +54,13 @@ jobs:
       - name: Build Angular App
         run: | 
           npm run build:$ENV
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
