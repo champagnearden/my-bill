@@ -19,9 +19,14 @@
 * [ ] Add profile picture to users
 * [ ] See github actions
 * [ ] Write docs
+* [ ] Create Cookie Banner and cookie personalisation
 
 # Serverless
 
 * [ ] Generate stack with sam
 * [ ] Add services (see [ticket](https://github.com/champagnearden/my-bill/issues/3 "github issue"))
 * [ ] Single click deployment ?
+* [ ] Personal Data:
+  * [ ] Set duration of inactivity
+  * [ ] Set anon (needed ?)
+  * [ ] Get Personnal Data as zip

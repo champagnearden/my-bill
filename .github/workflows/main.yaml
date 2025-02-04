@@ -1,0 +1,29 @@
+name: Build and Deploy Angular App
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 22
+
+      - name: Install Angular CLI
+        run: npm i
+
+      - name: Build Angular app
+        run: npm run build
+
+      - name: Deploy to gh pages
+        run: | 
+          npx angular-cli-ghpages --dir=dist/my-bill
+        env: 
+          CI: true
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
