@@ -3,27 +3,40 @@ on:
   push:
     branches:
       - dev
+      - uat
+      - prod
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 22
+      
+      - name: Cache Node Modules
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
-      - name: Install Angular CLI
-        run: npm i
+      - name: Install Dependencies
+        run: npm ci
 
-      - name: Build Angular app
-        run: npm run build
-
-      - name: Deploy to gh pages
+      - name: Build Angular App
         run: | 
-          npx angular-cli-ghpages --dir=dist/my-bill
-        env: 
-          CI: true
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          BRANCH=${GITHUB_REF##*/}
+          echo "Building for branch: $BRANCH"
+          npm run build:$BRANCH
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages             # Branch to deploy to.
+          folder: dist
+          token: ${{ secrets.GH_TOKEN }}
