@@ -66,5 +66,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages # Branch to deploy to.
-          folder: dist # build directory
+          folder: /home/runner/work/my-bill/dist # build directory
           token: ${{ secrets.GH_TOKEN }}
