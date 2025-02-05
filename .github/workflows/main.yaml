@@ -60,20 +60,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: angular-dist
-          path: .  # Adjust if your project places compiled files in a deeper folder
+          path: dist  # Adjust if your project places compiled files in a deeper folder
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      # Download the dist artifact from the build job
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
       - name: Download dist artifact
         uses: actions/download-artifact@v4
         with:
           name: angular-dist
-      
-      - name: List downloaded files 
-        run: ls -R 
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
