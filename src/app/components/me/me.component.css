@@ -1,0 +1,38 @@
+@import '~intl-tel-input/build/css/intlTelInput.css';
+
+h1, h2 {
+  text-align: center;
+}
+
+form section {
+  margin-bottom: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+p {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+select {
+  height: 100%;
+  width: 100%;
+}
+
+.iti {
+  position: inherit;
+  display: inherit;
+}
+
+.input-group .iti__selected-flag {
+  height: 100%;
+}
