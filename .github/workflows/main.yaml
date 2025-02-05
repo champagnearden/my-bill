@@ -55,7 +55,7 @@ jobs:
       - name: Build Angular App
         run: | 
           npm ci
-          npm run build:$ENV
+          npm run build:${{ needs.setup-environment.outputs.envValue }}
       
       # Upload dist folder as an artifact
       - name: Upload dist artifact
