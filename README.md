@@ -13,8 +13,8 @@
    1. [Main objective](#1-main-objective)
    2. [Prerequisities](#2-prerequisities)
    3. [Dev note](#3-dev-note)
-   4. [How to use]("#4-how-to-use")
-   5. [Features]("#5-features")
+   4. [How to use](#4-how-to-use)
+   5. [Features](#5-features)
    6. [Future](#6-future)
 </details>
 
