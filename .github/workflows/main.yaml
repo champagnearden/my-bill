@@ -11,7 +11,7 @@ jobs:
   setup-environment:
     runs-on: ubuntu-latest
     outputs:
-      ENV: ${{ steps.set-env.outputs.envValue }}
+      ENV: ${{ steps.set-env.outputs.ENV }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
