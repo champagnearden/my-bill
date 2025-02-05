@@ -41,7 +41,7 @@ Make sure to have [nodejs](https://nodejs.org/en/download "Download nodejs") ins
 
 ## 3. Dev note
 
-If a bug occurs, please create an issue or contact me directly.
+If a bug occurs, please create an issue or [contact](#contacts) me directly.
 
 ## 4. How to use
 
@@ -78,7 +78,10 @@ You can contact me on my email:
 
 Or DM me on social medias:
 
-![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)@champagnearden
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)]()@champagnearden
+
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jean-baptiste-beck-a32132217/)
+
 [![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/champagnearden/)
+
 [![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/champagnearden/)
