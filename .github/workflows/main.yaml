@@ -54,13 +54,23 @@ jobs:
       - name: Build Angular App
         run: | 
           npm run build:$ENV
+      
+      # Upload dist folder as an artifact
+      - name: Upload dist artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: angular-dist
+          path: dist  # Adjust if your project places compiled files in a deeper folder
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      # Download the dist artifact from the build job
+      - name: Download dist artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: angular-dist
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
