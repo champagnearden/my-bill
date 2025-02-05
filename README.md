@@ -1,59 +1,87 @@
-# MyBill
+# My Bill
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.5.
+<a href="https://buymeacoffee.com/champagnearden" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
-## Development server
+[![champagnearden - my-bill](https://img.shields.io/static/v1?label=champagnearden&message=my-bill&color=blue&logo=github)](https://github.com/champagnearden/my-bill "Go to GitHub repo")
+[![stars - my-bill](https://img.shields.io/github/stars/champagnearden/my-bill?style=social)](https://github.com/champagnearden/my-bill)
+[![forks - my-bill](https://img.shields.io/github/forks/champagnearden/my-bill?style=social)](https://github.com/champagnearden/my-bill)
+[![issues - my-bill](https://img.shields.io/github/issues/champagnearden/my-bill)](https://github.com/champagnearden/my-bill/issues)
 
-To start a local development server, run:
+<details open>
+  <summary>Content Table</summary>
 
+   1. [Main objective](#1-main-objective)
+   2. [Prerequisities](#2-prerequisities)
+   3. [Dev note](#3-dev-note)
+   4. [How to use](#4-how-to-use)
+   5. [Features](#5-features)
+   6. [Future](#6-future)
+</details>
+
+## 1. Main objective
+
+The main goal of my-bill is to generate your own estimate.
+We want you to be able to clone this repository and with some variables to be able to deploy your own billing solution.
+
+You'll be able to create users, administrators and moderators to update billing prices, set user infos etc...
+
+## 2. Prerequisities
+
+Make sure to have [nodejs](https://nodejs.org/en/download "Download nodejs") installed:
+
+1. ```bash
+   node --version
+   ```
+   Node version should be >= 22.13.1
+2. Install the dependencies using the [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm "How to install npm") install command:
+   ```bash
+   npm ci
+   ```
+   This will install all the dependencies needed according to [package.json](./package.json).
+
+## 3. Dev note
+
+If a bug occurs, please create an issue or [contact](#contacts) me directly.
+
+## 4. How to use
+
+If you want to test your changes without commiting, you can run the command:
 ```bash
-ng serve
+npm run start
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
+Or to access it via another device on your network:
 ```bash
-ng generate component component-name
+npm run start:public
 ```
+Then angular will give your adress below `http://localhost:4200`. You can then connect to this IP with port `4200`
+You can try the development version on https://champagnearden.github.io/my-bill/
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 5. Features
 
-```bash
-ng generate --help
-```
+Let me break it down for you the amazing features that are implementd in development version !
 
-## Building
+*Ok I'll do it later*
 
-To build the project run:
+## 6. Future
 
-```bash
-ng build
-```
+Features I'd like to implement:
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+* Make the repranding pipeline easy
+* Sign in / sign up with google, linkedin, facebook,... 
+* Be able to choose to deploy to AWS, Azure, Firebase,...
 
-## Running unit tests
+# Contacts
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+You can contact me on my email:
 
-```bash
-ng test
-```
+[jbbeck42@gmail.com](mailto:jbbeck42@gmail.com)
 
-## Running end-to-end tests
+Or DM me on social medias:
 
-For end-to-end (e2e) testing, run:
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)]()@champagnearden
 
-```bash
-ng e2e
-```
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jean-baptiste-beck-a32132217/)
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/champagnearden/)
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/champagnearden/)
