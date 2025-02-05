@@ -24,19 +24,19 @@ jobs:
 
           # If branch is "dev" OR it matches the pattern of digits followed by a dash and more characters
           if [[ "$BRANCH" == "dev" || "$BRANCH" =~ feature/* ]]; then
-            echo "ENV=dev" >> $GITHUB_ENV
+            echo "ENV=dev" >> $GITHUB_OUTPUT
 
           # If branch is "uat"
           elif [[ "$BRANCH" == "uat" ]]; then
-            echo "ENV=uat" >> $GITHUB_ENV
+            echo "ENV=uat" >> $GITHUB_OUTPUT
 
           # If branch is "prod"
           elif [[ "$BRANCH" == "prod" ]]; then
-            echo "ENV=prod" >> $GITHUB_ENV
+            echo "ENV=prod" >> $GITHUB_OUTPUT
 
           # Fallback if something else slips through
           else
-            echo "ENV=dev" >> $GITHUB_ENV
+            echo "ENV=dev" >> $GITHUB_OUTPUT
           fi
 
   build:
