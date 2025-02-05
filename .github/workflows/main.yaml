@@ -10,8 +10,14 @@ on:
 jobs:
   setup-environment:
     runs-on: ubuntu-latest
+    outputs:
+      ENV: ${{ steps.set-env.outputs.envValue }}
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
       - name: Set ENV based on branch
+        id: set-env
         run: |
           BRANCH="${{ github.ref_name }}"
           echo "Branch is $BRANCH"
@@ -34,6 +40,7 @@ jobs:
           fi
 
   build:
+    needs: setup-environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -55,7 +62,7 @@ jobs:
       - name: Build Angular App
         run: | 
           npm ci
-          npm run build:${{ needs.setup-environment.outputs.envValue }}
+          npm run build:${{ needs.setup-environment.outputs.ENV }}
       
       # Upload dist folder as an artifact
       - name: Upload dist artifact
@@ -65,7 +72,9 @@ jobs:
           path: dist  # Adjust if your project places compiled files in a deeper folder
 
   deploy:
-    needs: build
+    needs: 
+      - setup-environment
+      - build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repository
@@ -77,9 +86,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: angular-dist
-      
-      - name: Print environment
-        run: echo "Build job environment was ${{ needs.build.outputs.envValue }}"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
