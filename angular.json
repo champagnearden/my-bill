@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/",
+            "outputPath": "dist/my-bill",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -42,6 +42,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/my-bill/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -63,6 +64,7 @@
               "outputHashing": "all"
             },
             "uat": {
+              "baseHref": "/my-bill/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -74,6 +76,7 @@
               "sourceMap": true
             },
             "development": {
+              "baseHref": "/my-bill/",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
