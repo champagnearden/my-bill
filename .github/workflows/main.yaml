@@ -62,7 +62,7 @@ jobs:
       - name: Build Angular App
         run: | 
           npm ci
-          npm run build:${{ needs.setup-environment.outputs.ENV }} --base-href /my-bill/
+          npm run build:${{ needs.setup-environment.outputs.ENV }} --base-href my-bill
       
       # Upload dist folder as an artifact
       - name: Upload dist artifact
