@@ -1,21 +1,30 @@
 # My Bill
 
-<a href="https://buymeacoffee.com/champagnearden" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
-
 [![champagnearden - my-bill](https://img.shields.io/static/v1?label=champagnearden&message=my-bill&color=blue&logo=github)](https://github.com/champagnearden/my-bill "Go to GitHub repo")
-[![stars - my-bill](https://img.shields.io/github/stars/champagnearden/my-bill?style=social)](https://github.com/champagnearden/my-bill)
-[![forks - my-bill](https://img.shields.io/github/forks/champagnearden/my-bill?style=social)](https://github.com/champagnearden/my-bill)
-[![issues - my-bill](https://img.shields.io/github/issues/champagnearden/my-bill)](https://github.com/champagnearden/my-bill/issues)
+&emsp;[![stars - my-bill](https://img.shields.io/github/stars/champagnearden/my-bill?style=social)](https://github.com/champagnearden/my-bill)
+&emsp;[![forks - my-bill](https://img.shields.io/github/forks/champagnearden/my-bill?style=social)](https://github.com/champagnearden/my-bill)
+&emsp;[![issues - my-bill](https://img.shields.io/github/issues/champagnearden/my-bill)](https://github.com/champagnearden/my-bill/issues)
+&emsp;[![coffee](https://img.buymeacoffee.com/button-api/?text=Buy%20me%20a%20coffee&emoji=🗿&slug=champagnearden&button_colour=FF5F5F&font_colour=FFFFFF&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff)](https://buymeacoffee.com/champagnearden "Buy me a coffee")
 
 <details open>
-  <summary>Content Table</summary>
-
-   1. [Main objective](#1-main-objective)
-   2. [Prerequisities](#2-prerequisities)
-   3. [Dev note](#3-dev-note)
-   4. [How to use](#4-how-to-use)
-   5. [Features](#5-features)
-   6. [Future](#6-future)
+   <summary>Content Table</summary>
+   <ol>
+      <li><a href="#1-main-objective">Main objective</a></li>
+      <li><a href="#2-prerequisities">Prerequisities</a></li>
+      <li><a href="#3-dev-note">Dev note</a></li>
+      <li><a href="#4-how-to-use">How to use</a></li>
+      <li>
+         <details open>
+            <summary><a href="#5-features">Features</summary>
+            <ol>
+               <li><a href="#51-common-to-profiles">Common to profiles</a></li>
+               <li><a href="#52-as-an-admin">As an admin</a></li>
+            </ol>
+         </details>
+      </li>
+      <li><a href="#6-future">Future</a></li>
+      <li><a href="#7-contacts">Contacts</a></li>
+   </ol>
 </details>
 
 ## 1. Main objective
@@ -32,11 +41,14 @@ Make sure to have [nodejs](https://nodejs.org/en/download "Download nodejs") ins
 1. ```bash
    node --version
    ```
+
    Node version should be >= 22.13.1
 2. Install the dependencies using the [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm "How to install npm") install command:
+
    ```bash
    npm ci
    ```
+
    This will install all the dependencies needed according to [package.json](./package.json).
 
 ## 3. Dev note
@@ -46,42 +58,50 @@ If a bug occurs, please create an issue or [contact](#contacts) me directly.
 ## 4. How to use
 
 If you want to test your changes without commiting, you can run the command:
+
 ```bash
 npm run start
 ```
+
 Or to access it via another device on your network:
+
 ```bash
 npm run start:public
 ```
+
 Then angular will give your adress below `http://localhost:4200`. You can then connect to this IP with port `4200`
 You can try the development version on https://champagnearden.github.io/my-bill/
 
 ## 5. Features
 
-Let me break it down for you the amazing features that are implementd in development version !
+Let me break it down for you the amazing features that are implemented in development version !
 
-*Ok I'll do it later*
+### 5.1. Common to profiles
+
+* Generate an estimate
+* Print the generated estimate or export it as pdf
+* See and edit your information
+
+### 5.2. As an admin
+
+* Edit users details
+* Edit users role
 
 ## 6. Future
 
-Features I'd like to implement:
+A magician never reveals his secrets 🧙
 
-* Make the repranding pipeline easy
-* Sign in / sign up with google, linkedin, facebook,... 
-* Be able to choose to deploy to AWS, Azure, Firebase,...
+If you want, you can create an issue or a fork to help improve My Bill !
+*Maybe one day your feature will be available to everyone*🔮
 
-# Contacts
+# 7. Contacts
 
-You can contact me on my email:
-
-[jbbeck42@gmail.com](mailto:jbbeck42@gmail.com)
+You can contact me on my email: [jbbeck42@gmail.com](mailto:jbbeck42@gmail.com?subject=From%20My%20Bill)
 
 Or DM me on social medias:
 
-[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)]()@champagnearden
-
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jean-baptiste-beck-a32132217/)
+&emsp;[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/champagnearden/)
+&emsp;[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/champagnearden/)
+&emsp;![Discord](https://img.shields.io/discord/1212658088079794226?style=for-the-badge&logo=discord&label=Discord)
 
-[![Facebook](https://img.shields.io/badge/Facebook-%231877F2.svg?style=for-the-badge&logo=Facebook&logoColor=white)](https://www.facebook.com/champagnearden/)
-
-[![Instagram](https://img.shields.io/badge/Instagram-%23E4405F.svg?style=for-the-badge&logo=Instagram&logoColor=white)](https://www.instagram.com/champagnearden/)
