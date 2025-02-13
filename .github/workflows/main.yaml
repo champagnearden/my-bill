@@ -2,45 +2,11 @@ name: Build and Deploy Angular App
 on:
   push:
     branches:
-      - feature/*
-      - dev
-      - uat
-      - prod
+      - main
 
 jobs:
-  setup-environment:
-    runs-on: ubuntu-latest
-    outputs:
-      ENV: ${{ steps.set-env.outputs.ENV }}
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set ENV based on branch
-        id: set-env
-        run: |
-          BRANCH="${{ github.ref_name }}"
-          echo "Branch is $BRANCH"
-
-          # If branch is "dev" OR it matches the pattern of digits followed by a dash and more characters
-          if [[ "$BRANCH" == "dev" || "$BRANCH" =~ feature/* ]]; then
-            echo "ENV=dev" >> $GITHUB_OUTPUT
-
-          # If branch is "uat"
-          elif [[ "$BRANCH" == "uat" ]]; then
-            echo "ENV=uat" >> $GITHUB_OUTPUT
-
-          # If branch is "prod"
-          elif [[ "$BRANCH" == "prod" ]]; then
-            echo "ENV=prod" >> $GITHUB_OUTPUT
-
-          # Fallback if something else slips through
-          else
-            echo "ENV=dev" >> $GITHUB_OUTPUT
-          fi
 
   build:
-    needs: setup-environment
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -62,18 +28,17 @@ jobs:
       - name: Build Angular App
         run: | 
           npm ci
-          npm run build:${{ needs.setup-environment.outputs.ENV }}
+          npm run build:dev
       
       # Upload dist folder as an artifact
       - name: Upload dist artifact
         uses: actions/upload-artifact@v4
         with:
           name: angular-dist
-          path: dist/my-bill  # Adjust if your project places compiled files in a deeper folder
+          path: dist/my-bill
 
   deploy:
     needs: 
-      - setup-environment
       - build
     runs-on: ubuntu-latest
     steps:
